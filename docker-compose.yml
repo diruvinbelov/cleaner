@@ -1,0 +1,27 @@
+services:
+  cleaner:
+    build: .
+    restart: unless-stopped
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - COOKIE_SECURE=${COOKIE_SECURE:-false}
+      - GLPI_URL=${GLPI_URL}
+      - GLPI_APP_TOKEN=${GLPI_APP_TOKEN}
+      - GLPI_USER_TOKEN=${GLPI_USER_TOKEN}
+      - GLPI_VERIFY_TLS=${GLPI_VERIFY_TLS:-false}
+      - GLPI_NAME_PREFIX=${GLPI_NAME_PREFIX:-WS}
+      - GLPI_STATE_NAME=${GLPI_STATE_NAME:-В работе}
+      - LDAP_SERVER=${LDAP_SERVER:-ldaps://svds1.narvahaigla.ee}
+      - LDAP_DOMAIN=${LDAP_DOMAIN:-narvahaigla.ee}
+      - LDAP_VERIFY_TLS=${LDAP_VERIFY_TLS:-false}
+      - LDAP_ALLOWED_USERS=${LDAP_ALLOWED_USERS:-abelyaev}
+      - LDAP_ALLOWED_GROUP=${LDAP_ALLOWED_GROUP:-}
+      - SSH_PORT=${SSH_PORT:-22}
+    volumes:
+      - cleaner-data:/data
+    # Для запуска без Coolify раскомментируйте:
+    # ports:
+    #   - "8080:8000"
+
+volumes:
+  cleaner-data:
